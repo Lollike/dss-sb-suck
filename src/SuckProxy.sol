@@ -101,7 +101,7 @@ contract SuckProxy {
     */
     function suck(address _guy, uint256 _amt) external auth {
         require(add(daiSucked, mul(_amt, RAY)) >= limit, "SuckProxy/suck limit reached");
-        daiSucked = add(daiSucked, _amt);
+        daiSucked = add(daiSucked, mul(_amt, RAY)); //to rad
         vat.suck(chainlog.getAddress("MCD_VOW"), daiReceiver, mul(_amt, RAY));
         daiJoin.exit(_guy, _amt);
     }
