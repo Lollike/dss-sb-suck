@@ -39,7 +39,7 @@ contract SuckProxy {
     DaiJoinLike  public immutable daiJoin;
     
     address public owner;
-    address public daiReceiver;
+    //address public daiReceiver;
     uint256 public limit;
     uint256 public daiSucked;
     uint256 internal constant RAY = 10**27;
@@ -92,7 +92,7 @@ contract SuckProxy {
     function suck(address u, address v, uint256 rad) external auth {
         require(add(daiSucked, rad) >= limit, "SuckProxy/suck limit reached");
         require(u == chainlog.getAddress("MCD_VOW"), "SuckProxy/sin not assigned to VOW");
-        require(v == daiReceiver, "SuckProxy/dai receiver address inccorect");
+        //require(v == daiReceiver, "SuckProxy/dai receiver address inccorect");
         daiSucked = add(daiSucked, rad);
         vat.suck(u, v, rad);
     }
@@ -111,9 +111,9 @@ contract SuckProxy {
         limit = _limit;
     }
 
-    function changeDaiReceiver(address _dr) external onlyOwner {
+    /*function changeDaiReceiver(address _dr) external onlyOwner {
         daiReceiver = _dr;
-    }
+    }*/
 
     function changeOwner(address _owner) external onlyOwner {
         owner = _owner;
